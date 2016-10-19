@@ -16,6 +16,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+
+    let nowPlayingMovieListViewController = MovieListViewController(sortingType: MovieListSortingType.NowPlaying)
+    let topRatedMovieListViewController = MovieListViewController(sortingType: MovieListSortingType.TopRated)
+
+    let frameImage = UIImage(named: "frame")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+    let popcornImage = UIImage(named: "popcorn")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+
+    let nowPlayingMovieTabBarItem = UITabBarItem.init(title: "Now Playing", image: frameImage, tag: 0)
+    let topRatedMovieTabBarItem = UITabBarItem.init(title: "Top Rated", image: popcornImage, tag: 1)
+
+    nowPlayingMovieListViewController.tabBarItem = nowPlayingMovieTabBarItem
+    topRatedMovieListViewController.tabBarItem = topRatedMovieTabBarItem
+
+    let navigationController1 = UINavigationController(rootViewController: nowPlayingMovieListViewController)
+    navigationController1.hidesBottomBarWhenPushed = true
+    let navigationController2 = UINavigationController(rootViewController: topRatedMovieListViewController)
+    navigationController2.hidesBottomBarWhenPushed = true
+
+    let tabBarController = UITabBarController()
+    tabBarController.setViewControllers(
+      [navigationController1, navigationController2],
+      animated: true)
+
+
+    window?.rootViewController = tabBarController
     return true
   }
 
